@@ -32,7 +32,7 @@ class App extends React.Component {
 		<Title text="ToDo-App" />
 		<TaskForm onAddTask={this.addTask}  />
 		<TaskList list={this.state.tasklist} />
-		<p>Tienes<strong> 3 </strong>tareas pendientes</p>
+		<p>Tienes<strong> {this.state.tasklist.length} </strong>tareas pendientes</p>
 		</main>
   	);
 	}
