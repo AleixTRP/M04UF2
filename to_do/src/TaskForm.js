@@ -1,5 +1,7 @@
 import React from 'react';
-
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 class TaskForm extends React.Component
 {
@@ -14,15 +16,15 @@ class TaskForm extends React.Component
 		render(){
 		return (
 		<form>
-		<p><input tpye="text" value={this.state.task} onChange={event => {  
+		<p><TextField variant="standard" input tpye="text" value={this.state.task} onChange={event => {  
 
 		this.setState({
 			task:event.target.value
 			
 			});
 		}}
-		placeholder="Escribe una tarea" /></p>
-		<button type="button"onClick={() =>{
+    placeholder="Escribe una tarea" />
+		<Button variant="contained" type="button" onClick={() =>{
 		
 		 if(this.state.task.trim() == ""){
       		 this.setState({
@@ -37,7 +39,7 @@ class TaskForm extends React.Component
 			task:""
 			});
 		
-		}}>+</button>
+		}}>+</Button></p>
 		</form>
 
 
