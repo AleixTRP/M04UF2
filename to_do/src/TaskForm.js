@@ -24,8 +24,7 @@ class TaskForm extends React.Component
 			});
 		}}
     placeholder="Escribe una tarea" sx = {{ margin: 4 }} />
-		<Button variant="contained" type="button" sx = {{ }}onClick={() =>{
-		
+		<Button variant="contained" type="button" sx = {{ position: 'relative', top: '23px'}}onClick={() =>{	
 		 if(this.state.task.trim() == ""){
       		 this.setState({
 	        	task: ""
