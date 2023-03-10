@@ -16,10 +16,33 @@ class App extends React.Component {
 	constructor(props){
 		super(props);
 
-			this.state = {
-				tasklist: ["Lista", "ZZZ"]
+			this.state = 
+			{
+				tasklist: []
 				};
 
+		}
+
+		componentDidMount () {
+			fetch('http://10.40.2.198:7070')
+			.then(response => response.json())
+			.then(data => this.createTaskList(data));
+		}
+
+		createTaskList = (data) => 
+		{
+			if(data.length <= 0)
+			{
+			return;
+
+			}
+			for(let i = 0; i < data.length; i++)
+			{
+					this.state.tasklist.push(data[i].item);
+			}
+				this.setState({
+				tasklist: this.state.tasklist
+				});
 		}
 
 	addTask = (task) => {

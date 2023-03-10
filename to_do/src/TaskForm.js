@@ -46,10 +46,6 @@ class TaskForm extends React.Component
 
 	}
 
-
-
-
-
 }
 
 export default TaskForm;

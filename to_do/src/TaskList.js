@@ -14,9 +14,11 @@ class TaskList extends React.Component
 		}
 		render(){
 		console.log("render");
+		let counter = -1;
 		const tasks = this.state.items.map(task => {
+		counter++;
 		return (
-			<TaskItem text={task} onDeleteTask= {this.props.onDeleteTask} />
+			<TaskItem text={task} num_task={counter} onDeleteTask= {this.props.onDeleteTask} />
 			);
 		});
 	return (
