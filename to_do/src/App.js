@@ -40,6 +40,7 @@ class App extends React.Component {
 			{
 					this.state.tasklist.push(data[i].item);
 			}
+				n
 				this.setState({
 				tasklist: this.state.tasklist
 				});
@@ -47,6 +48,13 @@ class App extends React.Component {
 
 	addTask = (task) => {
 	console.log(task);
+	
+		let item = {item: task};
+
+		fetch('http://10.40.2.198:7070',{
+			method: "POST";
+			body:JSON.stringify(item)
+		});
 
 		this.state.tasklist.unshift(task);
 
