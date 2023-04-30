@@ -14,67 +14,68 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 
 class TaskItem extends React.Component
-
-{
-	constructor(props)
-	{
-		super(props);
-		  this.state = 
-			{
-				open:false
-				};
-		}
-			openDialog = () =>
-			{
-				this.setState ({
-					open:true
-				});
-			}
-
-			closeDialog = () =>
-			{
-				this.setState({
-					open:false
-					
-					});
-				}
-
-		removeTask = () => 
-		{
-				this.props.onDeleteTask(this.props.num_task);
-				this.closeDialog();
-		}
-		 
-		render() 
-		{
-		return (
-		
-				<ListItem>
-					<ListItemText primary={this.props.text} />
-						<Tooltip onClick={this.openDialog} title="Borrar">
-							<IconButton>
-								<DeleteIcon />
-									</IconButton>
-								</Tooltip>
-							<Dialog open={this.state.open}>
-						<DialogContent>
-							<DialogContentText>
-								¿Quieres Borrar?
-							</DialogContentText>
-					</DialogContent>
-						<DialogActions>
-							<Button color="secondary" onClick={this.closeDialog} >Borrar</Button>
-							<Button variant="contained" color="error" onClick={this.removeTask}>Descartar</Button>
-					</DialogActions>
-				</Dialog>
-			</ListItem>
-			);
-		}
-	}
-
-
-export default TaskItem;
-
+ 
+  {
+    constructor(props)
+      {
+       super(props);
+          this.state =
+            {
+                  open:false
+                  };
+          }
+              openDialog = () =>
+              {
+                  this.setState ({
+                      open:true
+                  });
+              }
+ 
+            closeDialog = () =>
+              {
+                  this.setState({
+                      open:false
+ 
+                      });
+                 }
+ 
+          removeTask = () =>
+          {
+                  this.props.onDeleteTask(this.props.num_task);
+                  this.closeDialog();
+          }
+ 
+ 
+          render()
+          {
+ 
+        return (
+ 
+            <ListItem>
+             <ListItemText primary={this.props.text} />
+               <Tooltip onClick={this.openDialog} title="Borrar">
+                 <IconButton>
+                   <DeleteIcon />
+                     </IconButton>
+                        </Tooltip>
+                          <Dialog open={this.state.open}>
+                         <DialogContent>
+                            <DialogContentText>
+                               ¿Estas seguro de que quieres Borrar?
+                          </DialogContentText>
+                     </DialogContent>
+                         <DialogActions>
+                            <Button color="secondary" onClick={this.closeDialog} >Cancelar</Button>
+                            <Button variant="contained" color="error" onClick={this.removeTask}>Borrar</Button>
+                      </DialogActions>
+                  </Dialog>
+              </ListItem>
+              );
+          }
+      }
+ 
+ 
+ export default TaskItem;
 
 
 
