@@ -65,17 +65,17 @@ class App extends React.Component {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    height: '100vh',
-                    background: 'linear-gradient(#801ED9, #B86AFF, #DDB7FF)'
+                    height: '150vh',
+                    background: 'linear-gradient(#801ED9, #B86A00, #DDB7FF)'
                 }}
             >
                 <Paper elevation={3} sx={{ padding: '1rem' }}>
-                    <Typography variant="h2" sx={{ backgroundColor: '#E4E4E4', padding: '0.5rem' }}>
-                        ToDo-App
+                    <Typography variant="h2" sx={{ backgroundColor: '#00112', padding: '0.5rem' }}>
+                        To_Do
                     </Typography>
                     <TaskForm onAddTask={this.addTask} />
                     <TaskList list={this.state.tasklist} onDeleteTask={this.deleteTask} />
-                    <Typography sx={{ fontSize: '1.5rem', margin: '1rem 0' }}>
+                    <Typography sx={{ fontSize: '1.7rem', margin: '1rem 0' }}>
                         Tienes <strong style={{ color: '#F7FF00' }}>{this.state.tasklist.length}</strong> tareas pendientes
                     </Typography>
                 </Paper>
