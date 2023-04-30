@@ -74,23 +74,25 @@ class App extends React.Component {
               });
       }
  
-        render() {
+          render() {
     return (
-      <Box sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        background: 'linear-gradient(#801ED9, #B86AFF, #DDB7FF)'
-      }}>
-        <Paper elevation={3} sx={{ p: '1rem', width: '40%' }}>
-          <Typography variant="h2" sx={{ backgroundColor: '#E4E4E4', p: '0.5rem', mb: '1rem' }}>
-            ToDo-App
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+          background: 'linear-gradient(#801ED9, #B86AFF, #DDB7FF)',
+        }}
+      >
+        <Paper elevation={3} sx={{ padding: '1rem', minWidth: '30%' }}>
+          <Typography variant="h2" sx={{ backgroundColor: '#E4E4E4', padding: '0.5rem', textAlign: 'center' }}>
+            My To-Do App
           </Typography>
           <TaskForm onAddTask={this.addTask} />
-          <TaskList list={this.state.tasklist} onDeleteTask={this.deleteTask} />
-          <Typography sx={{ fontSize: '1.5rem', mt: '1rem' }}>
-            Tienes <strong style={{ color: '#F7FF00' }}>{this.state.tasklist.length}</strong> tareas pendientes
+          <TaskList list={this.state.taskList} onDeleteTask={this.deleteTask} />
+          <Typography sx={{ fontSize: '1.5rem', margin: '1rem 0', textAlign: 'center' }}>
+            Tienes <strong style={{ color: '#F7FF00' }}>{this.state.taskList.length}</strong> tareas pendientes
           </Typography>
         </Paper>
       </Box>
@@ -98,4 +100,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default TodoApp;
