@@ -9,6 +9,7 @@ import Chip from '@mui/material/Chip';
 import Badge from '@mui/material/Badge';
 import AnnouncementIcon from '@mui/icons-material/Announcement';
 
+import './TODO.css';
 
 
 class App extends React.Component {
@@ -66,33 +67,48 @@ class App extends React.Component {
 		.then(data => this.fetchData());
   }
 
-  deleteTank = (task) => {
-																																														             
-render() {
-	 return (
-	 	  <Box
-				  sx={{
-					  display: 'flex',
-						justifyContent: 'center',
-            alignItems: 'center',
-						height: '150vh',
-						background: 'linear-gradient(#801ED9, #B86A00, #DDB7FF)'
-    			}}
-		        >
-						 <Paper elevation={3} sx={{ padding: '1rem' }}>
-						   <Typography variant="h2" sx={{ backgroundColor: '#00112', padding: '0.5rem' }}>	
-							  To_Do
-								 </Typography>
-								   <TaskForm onAddTask={this.addTask} />
-									  <TaskList list={this.state.tasklist} onDeleteTask={this.deleteTask} />
-									  <Typography sx={{ fontSize: '1.7rem', margin: '1rem 0' }}>
-					Tienes <strong style={{ color: '#F7FF00' }}>{this.state.tasklist.length}</strong> tareas pendientes
-					</Typography>
-					</Paper>
-					</Box>
-			);
-		}
-	}
+  deleteTask = (task) => {
+	
+	console.log(task);
+	fetch('http://192.168.1.37:8080', {
+		method: "POST",
+		body: '{"task":"' + task + '", "remove": "true"}'
+	})
+		.then(response => response.json)
+		.then(data => this.fetchData());
+  }
+
+  render() {
+
+  	return (
+    	<Box 
+			sx={{
+				display:'flex',
+				flexWrap:'wrap',
+				justifyContent:'center',
+				alignContent:'center',
+				height: '100%',
+				background: 'linear-gradient(#e66465, #9198e5)'
+			}}
+		>
+			<Paper elevation={3}
+				sx={{
+					padding:'16px'
+				}}
+			>
+				<Title text="ToDO App" />
+				<TaskForm onAddTask={this.addTask} />
+				<TaskList list={this.state.tasklist} listTime={this.state.tasklistTime} onDeleteTask={this.deleteTask}/>
+				<Chip 
+					variant="outlined"
+					color="info"
+					icon={<Badge badgeContent={this.state.tasklist.length} color="info"><AnnouncementIcon color="action"/></Badge>}
+					label="pending tasks"
+				/>
+			</Paper>
+    	</Box>
+  	);
+  }
+}
 
 export default App;
-
