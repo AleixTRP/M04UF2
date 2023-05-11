@@ -8,6 +8,7 @@ import TaskList from './TaskList';
 import Chip from '@mui/material/Chip';
 import Badge from '@mui/material/Badge';
 import AnnouncementIcon from '@mui/icons-material/Announcement';
+import Typography from '@mui/material/Typography';
 
 import './TODO.css';
 
@@ -29,7 +30,7 @@ class App extends React.Component {
   }
 
   fetchData = () => {
-	fetch('http://192.168.1.37:8080', { method: "GET" })
+	fetch('http://192.168.1.121:7070', { method: "GET" })
 		.then(response => response.json())
         .then(data => this.createTasklist(data));
   }
@@ -59,7 +60,7 @@ class App extends React.Component {
 
   addTask = (task) => {
 	
-	fetch('http://192.168.1.37:8080', {
+	fetch('http://192.168.1.121:7070', {
 		method: "POST",
 		body: '{"task":"' + task + '", "remove": "false"}'
 	})
@@ -70,13 +71,13 @@ class App extends React.Component {
   deleteTask = (task) => {
 	
 	console.log(task);
-	fetch('http://192.168.1.37:8080', {
-		method: "POST",
-		body: '{"task":"' + task + '", "remove": "true"}'
-	})
-		.then(response => response.json)
-		.then(data => this.fetchData());
-  }
+	fetch('http://192.168.1.121/:7070', {
+	    method: "POST",
+			    body: '{"task":"' + task + '", "remove": "true"}'
+					})
+					    .then(response => response.json())
+							    .then(data => this.fetchData());
+
 
    render() {
         return (
@@ -94,9 +95,9 @@ class App extends React.Component {
                         To_Do
 				<TaskForm onAddTask={this.addTask} />
 				<TaskList list={this.state.tasklist} listTime={this.state.tasklistTime} onDeleteTask={this.deleteTask}/>
-              <Typography sx={{ fontSize: '1.7rem', margin: '1rem 0' }}>
-                        Tienes <strong style={{ color: '#F7FF00' }}>{this.state.tasklist.length}</strong> tareas pendientes
-                    </Typography>
+            <Typography sx={{ fontSize: '1.7rem', margin: '1rem 0' }}>
+						Tienes <strong style={{ color: '#F7FF00' }}>{this.state.tasklist.length}</strong> tareas pendientes
+						</Typography>
                 </Paper>
             </Box>
         );
