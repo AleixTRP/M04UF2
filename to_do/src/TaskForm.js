@@ -1,63 +1,42 @@
 import React from 'react';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
 
- class TaskForm extends React.Component
-   {
-  
-          constructor(props){
-             super(props);
-                  this.state= {
- 
-                  task: ""
-                  };
-          }
-          render(){
-          return (
-          <form>
-         <p><TextField variant="standard" input tpye="text" value={this.state.task} onChange={event => {
- 
-          this.setState({
-              task:event.target.value
- 
-              });
-          }}
-      placeholder="Escribe tu nueva tarea" sx = {{ margin: 3 }} />
-          <Button variant="contained" type="button" sx = {{ position: 'relative', top: '23px', right: '20px'}}onClick={() =>{
-           if (this.state.task.trim() === "") {
-               this.setState({
-                  task: ""
-                  });
-                  return;
-             }
- 
-          this.props.onAddTask(this.state.task);
- 
-          this.setState({
-              task:""
-              });
+class TaskForm extends React.Component {
 
-          }}>Añadir</Button></p>
+	constructor(props) {
+
+		super(props);
+		this.state = {
+			task: ""
+		};
+	}
+
+	render() {
+		return (
+		<form>
+			<p><TextField variant="standard" value={this.state.task} placeholder="Add your new task" onChange={event => {
+				this.setState({
+					task: event.target.value
+				});
+			}}/>
+		  	<Button variant="contained" type="button" onClick={() => {
+				
+				if (this.state.task.trim() === "") {
+					this.setState({
+						task: ""
+					});
+					return;
+				}
+				
+				this.props.onAddTask(this.state.task);
+				this.setState({
+					task: ""
+				});
+			}}>+</Button></p>
          </form>
- 
- 
-         );
- 
-     }
- 
-  }
- 
-  export default TaskForm;
+		);
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
+export default TaskForm;
