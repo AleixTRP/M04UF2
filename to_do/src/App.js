@@ -1,64 +1,84 @@
 import React from 'react';
-import { Box, Paper, Typography } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+
+import Title from './Title';
 import TaskForm from './TaskForm';
 import TaskList from './TaskList';
-import './App.css';
+import Chip from '@mui/material/Chip';
+import Badge from '@mui/material/Badge';
+import AnnouncementIcon from '@mui/icons-material/Announcement';
+
+import './TODO.css';
+
 
 class App extends React.Component {
+  
+  constructor(props) {
+  	super(props);
+	this.state = {
+		tasklistIds: [],
+		tasklist: [],
+		tasklistTime: []
+	};
+  }
 
-    constructor(props) {
-        super(props);
+  componentDidMount () {
+	
+	this.fetchData();
+  }
 
-        this.state = {
-            tasklist: []
-        };
-    }
+  fetchData = () => {
+	fetch('http://192.168.1.37:8080', { method: "GET" })
+		.then(response => response.json())
+        .then(data => this.createTasklist(data));
+  }
+  
+  createTasklist = (list) => {
 
-    componentDidMount() {
-        fetch('http://10.40.1.19:8080')
-            .then(response => response.json())
-            .then(data => this.createTaskList(data));
-    }
+  	this.state.tasklistIds = [];
+	this.state.tasklist = [];
+	this.state.tasklistTime = [];
+	
+	if (list.length <= 0) {
+		return;
+	}
 
-    createTaskList = (data) => {
-        if (data.length <= 0) {
-            return;
-        }
-        for (let i = 0; i < data.length; i++) {
-            this.state.tasklist.push(data[i].item);
-        }
+	for (let i = 0; i < list.length; i++) {
+		this.state.tasklistIds.unshift(list[i]._id);
+		this.state.tasklist.unshift(list[i].tasks);
+		this.state.tasklistTime.unshift(list[i].time);
+	}
+	
+	this.setState ({
+		tasklistIds: this.state.tasklistIds,
+		tasklist: this.state.tasklist,
+		taskListTime: this.state.tasklistTime
+	});
+  }
 
-        this.setState({
-            tasklist: this.state.tasklist
-        });
-    }
+  addTask = (task) => {
+	
+	fetch('http://192.168.1.37:8080', {
+		method: "POST",
+		body: '{"task":"' + task + '", "remove": "false"}'
+	})
+		.then(response => response.json())
+		.then(data => this.fetchData());
+  }
 
-    addTask = (task) => {
-        console.log(task);
+  deleteTask = (task) => {
+	
+	console.log(task);
+	fetch('http://192.168.1.37:8080', {
+		method: "POST",
+		body: '{"task":"' + task + '", "remove": "true"}'
+	})
+		.then(response => response.json)
+		.then(data => this.fetchData());
+  }
 
-        let item = { item: task };
-
-        fetch('http://10.40.1.19:8080', {
-            method: "POST",
-            body: JSON.stringify(item)
-        });
-
-        this.state.tasklist.unshift(task);
-
-        this.setState({
-            tasklist: this.state.tasklist
-        });
-    }
-
-    deleteTask = (task_num) => {
-        this.state.tasklist.splice(task_num, 1);
-
-        this.setState({
-            tasklist: this.state.tasklist
-        });
-    }
-
-    render() {
+   render() {
         return (
             <Box
                 sx={{
@@ -72,10 +92,9 @@ class App extends React.Component {
                 <Paper elevation={3} sx={{ padding: '1rem' }}>
                     <Typography variant="h2" sx={{ backgroundColor: '#00112', padding: '0.5rem' }}>
                         To_Do
-                    </Typography>
-                    <TaskForm onAddTask={this.addTask} />
-                    <TaskList list={this.state.tasklist} onDeleteTask={this.deleteTask} />
-                    <Typography sx={{ fontSize: '1.7rem', margin: '1rem 0' }}>
+				<TaskForm onAddTask={this.addTask} />
+				<TaskList list={this.state.tasklist} listTime={this.state.tasklistTime} onDeleteTask={this.deleteTask}/>
+              <Typography sx={{ fontSize: '1.7rem', margin: '1rem 0' }}>
                         Tienes <strong style={{ color: '#F7FF00' }}>{this.state.tasklist.length}</strong> tareas pendientes
                     </Typography>
                 </Paper>
